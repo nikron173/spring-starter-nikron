@@ -1,0 +1,23 @@
+logging:
+  level:
+    root: INFO
+#  file:
+#    name: nikron
+#    path: /
+#  logback:
+#    rollingpolicy:
+#      max-history: 5
+#      max-file-size: 10MB
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        hbm2ddl:
+          auto: validate
