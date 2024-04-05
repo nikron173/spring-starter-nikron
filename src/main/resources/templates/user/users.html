@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<form th:action="@{/users}" method="GET">
+    <label for="firstname">First name:
+        <input id="firstname" type="text" name="firstname" th:value="${filter.firstname()}">
+    </label>
+    <br>
+    <label for="lastname">Last name:
+        <input id="lastname" type="text" name="lastname" th:value="${filter.lastname()}">
+    </label>
+    <br>
+    <label for="birthDate">Birth date:
+        <input id="birthDate" type="date" name="birthDate" th:value="${filter.birthDate()}">
+    </label>
+    <br>
+    <label for="page">Page:
+        <input id="page" type="number" name="page" th:value="${users.metadata.page}">
+    </label>
+    <label for="size">Size:
+        <input id="size" type="number" name="size" th:value="${users.metadata.size}">
+    </label>
+    <br>
+    <button type="submit">Filter</button>
+</form>
+    <div th:each="user : ${users.content}">
+        <a th:href="@{'/users/' + ${user.getId()}}" th:text="${user.getUsername()} + ' - ' + ${user.getRole()}"></a>
+    </div>
+
+<!--    <div>-->
+<!--        <label for="page">Page:-->
+<!--            <input id="page" type="number" name="page" th:value="${users.metadata.page}">-->
+<!--        </label>-->
+<!--        <label for="size">Size:-->
+<!--            <input id="size" type="number" name="size" th:value="${users.metadata.size}">-->
+<!--        </label>-->
+<!--    </div>-->
+</body>
+</html>

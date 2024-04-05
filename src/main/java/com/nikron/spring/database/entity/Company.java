@@ -43,6 +43,7 @@ public class Company implements BaseEntity<Integer> {
             nullable = false)
     private String name;
 
+    @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<User> users = new ArrayList<>();
 

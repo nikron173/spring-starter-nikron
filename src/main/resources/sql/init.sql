@@ -3,7 +3,7 @@ CREATE TABLE company (
     name varchar(64) not null unique
 );
 CREATE TABLE company_locales (
-    company_id int REFERENCES company(id),
+    company_id int REFERENCES company(id) ON DELETE CASCADE,
     lang varchar(2),
     description varchar(255) not null,
     PRIMARY KEY (company_id, lang)
@@ -15,12 +15,13 @@ CREATE TABLE users (
     firstname varchar(64),
     lastname varchar(64),
     role varchar(32),
-    company_id int REFERENCES company(id)
+    company_id int REFERENCES company(id),
+    image varchar(128)
 );
 CREATE TABLE payment (
     id bigserial primary key,
     amount int,
-    receiver_id bigint REFERENCES users(id)
+    receiver_id bigint REFERENCES users(id) ON DELETE CASCADE
 );
 CREATE TABLE chat (
     id bigint primary key,
@@ -28,7 +29,7 @@ CREATE TABLE chat (
 );
 CREATE TABLE users_chat (
     id bigint primary key,
-    user_id bigint not null REFERENCES users(id),
-    chat_id bigint not null REFERENCES chat(id),
+    user_id bigint not null REFERENCES users(id) ON DELETE CASCADE,
+    chat_id bigint not null REFERENCES chat(id) ON DELETE CASCADE,
     UNIQUE (user_id, chat_id)
 );

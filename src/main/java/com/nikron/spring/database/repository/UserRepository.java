@@ -1,23 +1,28 @@
 package com.nikron.spring.database.repository;
 
 import com.nikron.spring.database.entity.User;
-import com.nikron.spring.database.mapper.UserMapper;
-import lombok.RequiredArgsConstructor;
+import com.nikron.spring.dto.PersonalInfo;
+import com.nikron.spring.dto.UserFilter;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
+import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@org.springframework.stereotype.Repository
-public class UserRepository implements Repository<Long, User> {
+@Repository
+public interface UserRepository extends JpaRepository<User, Long>, FilterUserRepository,
+        QuerydslPredicateExecutor<User> {
 
-    @Override
-    public Optional<User> findById(Long id) {
-        return Optional.empty();
-    }
+    //@Query("select u from User u where u.company.id = :companyId")
+    List<PersonalInfo> findAllByCompanyId(Integer companyId);
 
-    @Override
-    public List<User> findAll() {
-        return new ArrayList<>();
-    }
+    List<User> findFirst2By(Sort sort);
+
+    @Query("select u from User u" +
+            " where u.firstName like %:firstName% and u.lastName like %:lastName%")
+    List<User> findUsersByFirstNameContainingAndLastNameContaining(String firstName, String lastName);
+
 }

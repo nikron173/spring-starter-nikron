@@ -36,6 +36,7 @@ public class Chat implements BaseEntity<Long> {
     @Column(length = 64)
     private String name;
 
+    @Builder.Default
     @OneToMany(mappedBy = "chat", fetch = FetchType.LAZY)
     private List<UserChat> users = new ArrayList<>();
 }

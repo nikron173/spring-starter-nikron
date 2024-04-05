@@ -17,6 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString(exclude = {"chats", "company"})
 public class User implements BaseEntity<Long> {
 
     @Id
@@ -50,6 +52,9 @@ public class User implements BaseEntity<Long> {
             length = 64)
     private String lastName;
 
+    @Column(length = 128)
+    private String image;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -57,6 +62,7 @@ public class User implements BaseEntity<Long> {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<UserChat> chats = new ArrayList<>();
 
