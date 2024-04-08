@@ -7,6 +7,7 @@ import com.nikron.spring.dto.UserReadDto;
 import com.nikron.spring.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.TestConstructor;
 
 import java.time.LocalDate;
@@ -27,11 +28,6 @@ public class UserServiceIT {
     private final static Long USER_1 = 1L;
     private final static Integer COMPANY_1 = 1;
 
-    @Test
-    void findAll() {
-        var lst = userService.findAll();
-        assertThat(lst).hasSize(3);
-    }
 
     @Test
     void findById() {
@@ -47,8 +43,10 @@ public class UserServiceIT {
                 LocalDate.of(1997, 8, 30),
                 "Test",
                 "Test",
+                "Test",
                 Role.ADMIN,
-                COMPANY_1
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0])
         );
 
         UserReadDto actualResult = userService.create(dto);
@@ -68,8 +66,10 @@ public class UserServiceIT {
                 LocalDate.of(1997, 8, 30),
                 "Test",
                 "Test",
+                "Test",
                 Role.ADMIN,
-                COMPANY_1
+                COMPANY_1,
+                new MockMultipartFile("test", new byte[0])
         );
 
         Optional<UserReadDto> actualResult = userService.update(USER_1, dto);

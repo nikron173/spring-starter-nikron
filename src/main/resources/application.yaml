@@ -22,6 +22,8 @@ spring:
         hbm2ddl:
           auto: validate
     open-in-view: false
+  messages:
+    basename: messages
 app:
   image:
     bucket: C:\Users\nmoiseev\IdeaProjects\spring-starter-nikron\images

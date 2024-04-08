@@ -5,6 +5,32 @@
     <title>Login</title>
 </head>
 <body>
-Hello <p th:text="${user}"></p>!
+
+<div th:if="${param.error}">
+    <p style="color: red">Invalid username or password</p>
+</div>
+
+<form th:action="@{/login}"
+      th:method="POST"
+      enctype="multipart/form-data">
+<!--    <input type="hidden"-->
+<!--           th:name="${_csrf.getParameterName()}"-->
+<!--           th:value="${_csrf.getToken()}">-->
+    <label for="username"><span th:text="#{login.username}">Username:</span>
+        <input id="username" type="text" name="username">
+    </label>
+    <br>
+    <label for="password"><span th:text="#{login.password}">Password:</span>
+        <input id="password" type="password" name="password">
+    </label>
+    <br>
+    <button type="submit" th:text="Login"></button>
+</form>
+
+<form th:action="@{/users/registration}">
+    <button type="submit">Registration</button>
+</form>
+<br>
+<div th:insert="~{fragment :: locale}"></div>
 </body>
 </html>

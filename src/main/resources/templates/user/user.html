@@ -5,6 +5,7 @@
     <title>User</title>
 </head>
 <body>
+<div th:insert="~{fragment :: header}"></div>
 <form th:action="@{/users/{userId}/update(userId=${user.getId()})}"
       th:method="POST" th:object="${user}" enctype="multipart/form-data">
     <label for="username">Username:
@@ -23,11 +24,13 @@
         <input id="birthDate" type="date" name="birthDate" th:value="*{getBirthDate()}">
     </label>
     <br>
+    <label for="password">Password:
+        <input id="password" type="password" name="password">
+    </label>
     <br>
     <div th:if="${user.getImage()}">
         <img width="50" th:src="@{/api/v1/users/{userId}/avatar(userId=${user.getId()})}" alt="User image">
     </div>
-    <br>
     <br>
     <label for="image">Image:
         <input id="image" type="file" name="image">

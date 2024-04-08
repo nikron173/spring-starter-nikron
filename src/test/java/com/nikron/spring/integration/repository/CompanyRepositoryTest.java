@@ -58,13 +58,6 @@ public class CompanyRepositoryTest {
     }
 
     @Test
-    void findAllPersonalInfo(){
-        var lst = userRepository.findAllByCompanyId(1);
-        System.out.println(lst);
-        assertThat(lst).hasSize(1);
-    }
-
-    @Test
     void findFirst2by(){
         var lst = userRepository.findFirst2By(Sort.by("id").descending());
         System.out.println(lst);

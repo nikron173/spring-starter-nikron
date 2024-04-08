@@ -16,7 +16,8 @@ CREATE TABLE users (
     lastname varchar(64),
     role varchar(32),
     company_id int REFERENCES company(id),
-    image varchar(128)
+    image varchar(128),
+    password varchar(128) DEFAULT '{noop}123'
 );
 CREATE TABLE payment (
     id bigserial primary key,

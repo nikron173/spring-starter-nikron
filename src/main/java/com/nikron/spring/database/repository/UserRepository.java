@@ -21,6 +21,8 @@ public interface UserRepository extends JpaRepository<User, Long>, FilterUserRep
 
     List<User> findFirst2By(Sort sort);
 
+    Optional<User> findByUserName(String username);
+
     @Query("select u from User u" +
             " where u.firstName like %:firstName% and u.lastName like %:lastName%")
     List<User> findUsersByFirstNameContainingAndLastNameContaining(String firstName, String lastName);

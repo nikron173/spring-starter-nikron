@@ -55,6 +55,9 @@ public class User implements BaseEntity<Long> {
     @Column(length = 128)
     private String image;
 
+    @Column(length = 128)
+    private String password;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 

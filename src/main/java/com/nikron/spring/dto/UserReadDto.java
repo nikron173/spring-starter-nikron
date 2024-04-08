@@ -1,6 +1,5 @@
 package com.nikron.spring.dto;
 
-import com.nikron.spring.database.entity.Company;
 import com.nikron.spring.database.entity.Role;
 import lombok.Value;
 

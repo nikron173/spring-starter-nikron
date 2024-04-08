@@ -12,6 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,9 +47,12 @@ public class UserController {
         return "user/users";
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     @GetMapping("/{id}")
     public String findById(@PathVariable("id") Long id,
-                           Model model) {
+                           Model model,
+                           @CurrentSecurityContext SecurityContext securityContext,
+                           @AuthenticationPrincipal UserDetails userDetails) {
         return userService.findById(id).map(user -> {
             model.addAttribute("user", user);
             model.addAttribute("roles", Role.values());
@@ -56,14 +64,14 @@ public class UserController {
     }
 
     @GetMapping("/registration")
-    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto dto){
+    public String registration(Model model, @ModelAttribute("user") UserCreateEditDto dto) {
         model.addAttribute("user", dto);
         model.addAttribute("roles", Role.values());
         model.addAttribute("companies", companyService.findAll());
         return "user/registration";
     }
 
-    @PostMapping
+    @PostMapping("/registration")
     public String create(@ModelAttribute @Validated UserCreateEditDto user,
                          BindingResult bindingResult,
                          RedirectAttributes redirectAttributes) {
@@ -74,7 +82,7 @@ public class UserController {
             return "redirect:/users/registration";
         }
         UserReadDto dto = userService.create(user);
-        return String.format("redirect:/users/%d", dto.getId());
+        return String.format("redirect:/login", dto.getId());
     }
 
     @PostMapping("/{id}/update")

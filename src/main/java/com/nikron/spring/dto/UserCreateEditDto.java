@@ -26,9 +26,9 @@ public class UserCreateEditDto {
     @Size(min = 3, max = 30)
     String firstname;
 
+    String password;
+
     String lastname;
-
-
     Role role;
     Integer companyId;
     MultipartFile image;
